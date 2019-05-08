@@ -1,0 +1,77 @@
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
+import javafx.application.Application;
+import javafx.geometry.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+public class Square extends StackPane
+{
+	private Circle circle;
+	private static int turn;
+	
+	public Square() {
+		
+		Rectangle border = new Rectangle(50,50);
+		circle = new Circle();
+		circle.setRadius(17);
+		circle.setFill(null);
+		border.setFill(null);
+		border.setStroke(Color.BLACK);
+		setAlignment(Pos.CENTER);
+		getChildren().addAll(border);
+		setOnMouseClicked(e -> {
+			if(e.getButton() == MouseButton.PRIMARY) 
+				drawBlack();
+			else if(e.getButton() == MouseButton.SECONDARY)
+				drawWhite();
+			if(turn % 2 == 1 || turn == 1)
+				drawBlack();
+			else if(turn % 2 == 0)
+				drawWhite();
+			});
+	}
+	
+	public static void setTurn(int t)
+	{
+		turn = t;
+	}
+	
+	public static int getTurn()
+	{
+		return turn;
+	}
+	
+	private void drawBlack()
+	{
+		circle.setFill(Color.BLACK);
+		circle.setStroke(Color.BLACK);
+	}
+
+	private void drawWhite()
+	{
+		circle.setFill(null);
+		circle.setStroke(Color.BLACK);
+	}
+	
+	/*public void drawDot()
+	{
+		setOnMouseClicked(e -> {
+			if(e.getButton() == MouseButton.PRIMARY) 
+				drawBlack();
+			else if(e.getButton() == MouseButton.SECONDARY)
+				drawWhite();
+			if(turn % 2 == 1 || turn == 1)
+				drawBlack();
+			else if(turn % 2 == 0)
+				drawWhite();
+			});
+		getChildren().add(circle);
+	}*/
+}
+	
