@@ -1,101 +1,85 @@
 
-
+import java.io.File;
+import java.io.InputStream;
+import java.awt.*;
 import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Group;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-
-public class Background	extends Application {
-	public static void main(String args[])
-	{
-		launch(args);
-	}
-
-	
-	public void start(Stage stage)  {
-//		Image image = new Image("file:background.png");
-//		ImageView mv= new ImageView(image);
-//		
-//		Group root= new Group();
-//		root.getChildren().addAll(mv);
-//		
-//		Scene scene= new Scene(root,750,750);
-//		stage.setScene(scene);
-//		stage.setResizable(false);
-//		stage.show();
-//		
-//		//title
-//		Text t= new Text();
-//		t.setFont(Font.font("Verdana",50));
-//		t.setFill(Color.BLACK);
-//		t.setText("GOMOKU");
-		int x = 750;
-        int y = 750;
-//
-        Image image = new Image("file:background.png",x,y, false, false);
-        ImageView iv1 = new ImageView();
-        iv1.setImage(image);
-        iv1.setPreserveRatio(true);
-        iv1.setFitHeight(x);
-        iv1.setFitWidth(y);
-//        
-//        Text text = new Text("GOMOKU");
-//        text.setFont(Font.font ("Arial", 50));
-//
-//        Button button = new Button("Start");
-//        button.setTranslateX(10);
-//        button.setTranslateY(10);
-//        button.setContentDisplay(ContentDisplay.TOP);
-//
-//
-//        HBox root = new HBox();
-//
-//
-//        root.getChildren().add(iv1);
-//        root.getChildren().add(text);
-//        root.getChildren().add(button);
-//
-//
-//        Scene scene = new Scene(root,x,y);
-//
-//        stage.setTitle("Gomoku");
-//        stage.setScene(scene);
-//        stage.show();
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+ 
+public class Background extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    @Override
+    
+    public void start(Stage primaryStage) 
+    {
+    
+        StackPane root = new StackPane();
+      //Basic set up of Start Page
+        primaryStage.setScene(new Scene(root, 750, 750));
+        primaryStage.show();
         
-        Button button = new Button("Start");
-        Text text = new Text("Gomoku");
-        text.setFont(Font.font ("Arial", 50));
-
-        HBox hbox = new HBox();
-  hbox.getChildren().addAll(button, text); // button will be left of text
+        Canvas canvas = new Canvas( 750, 750 );
+        root.getChildren().add( canvas );
+             
+        GraphicsContext gc = canvas.getGraphicsContext2D();
       
-
-//        Image image = new Image("file:background.png",x,y, false, false);
-//        ImageView iv1 = new ImageView();
-
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(iv1, hbox); // hbox with button and text on top of image view
-
-        HBox root = new HBox();
-        root.getChildren().add(stackPane);
         
-      Scene scene = new Scene(root,x,y);
-
-      stage.setTitle("Gomoku");
-      stage.setScene(scene);
-      stage.show();
+        //Background Image
+        Image back = new Image("file:background.png", 750, 750, false, false);
+        gc.drawImage(back, 0, 0);
         
-		
-		
-	}
+       
+        
+        gc.setFill(Color.PINK);
+        gc.setFont(Font.font( "Impact", FontWeight.BOLD, 100 ));
+        gc.fillText( "GOMOKU", 200, 90 );
+        
+        
+        
+       
+        primaryStage.setResizable(false);
 
+        primaryStage.setTitle("GOMOKU");
+        Button button = new Button();
+        button.setText("Start");
+        button.setLayoutX(200);
+        button.setLayoutY(200);
+        root.getChildren().add(button);
+
+        Gomoku game = new Gomoku();
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event)
+            {
+            	Stage stage1 = new Stage();
+                game.start(stage1);
+                Stage stage2 = (Stage) button.getScene().getWindow();
+                stage2.close();
+            }
+        });
+        
+       
+      
+        primaryStage.show();
+    
+    }
+    
+   
+   
 }
+
