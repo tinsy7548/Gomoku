@@ -1,0 +1,86 @@
+
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
+import javafx.application.Application;
+import javafx.geometry.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+public class Square extends StackPane {
+	private Circle circle;
+	private static int turn;
+	
+
+	public Square(int x, int y) {
+		
+		turn = 3;
+		Rectangle border = new Rectangle(50, 50);
+		border.setFill(null);
+		border.setStroke(Color.BLACK);
+		getChildren().add(border);
+
+		setOnMouseClicked(e -> {
+			if (e.getButton() == MouseButton.PRIMARY) // && e.getButton().isEmpty())
+				if (circle == null) {
+					circle = new Circle();
+					circle.setRadius(17);
+					circle.setFill(null);
+					setAlignment(Pos.CENTER);
+					getChildren().add(circle);
+
+					if (turn % 2 == 1) {
+						drawBlack();
+						turn++;
+						Gomoku1.arr[x][y] = 1;
+						//Gomoku1.printArray();
+						if(Gomoku1.checkWinH(x, y, 1) || Gomoku1.checkWinV(x, y, 1))
+							System.out.println("Black Wins!");
+					} else {
+						drawWhite();
+						turn++;
+						Gomoku1.arr[x][y] = 2;
+						//Gomoku1.printArray();
+						if(Gomoku1.checkWinH(x, y, 2) || Gomoku1.checkWinV(x, y, 2))
+							System.out.println("White Wins!");
+					}
+				}
+			
+		});
+	}
+
+	public static void setTurn(int t) {
+		turn = t;
+	}
+
+	public static int getTurn() {
+		return turn;
+	}
+
+	private void drawBlack() {
+		circle.setFill(Color.BLACK);
+		circle.setStroke(Color.BLACK);
+	}
+
+	private void drawWhite() {
+		circle.setFill(null);
+		circle.setStroke(Color.BLACK);
+	}
+
+	/*
+	 * public boolean isEmpty(MouseEvent e) {
+	 * 
+	 * if (e.getButton.getChildren==null) { return true; } else return false; } }
+	 */
+	/*
+	 * public void drawDot() { setOnMouseClicked(e -> { if(e.getButton() ==
+	 * MouseButton.PRIMARY) drawBlack(); else if(e.getButton() ==
+	 * MouseButton.SECONDARY) drawWhite(); if(turn % 2 == 1 || turn == 1)
+	 * drawBlack(); else if(turn % 2 == 0) drawWhite(); });
+	 * getChildren().add(circle); }
+	 */
+}
