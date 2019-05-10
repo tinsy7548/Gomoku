@@ -1,0 +1,192 @@
+import javafx.application.Application;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+public class Gomoku1 extends Application
+{
+	private boolean playable = true;
+	public static int[][] arr = new int[15][15];
+
+	private Parent createContent()
+	{
+		
+		
+		Pane root= new Pane();
+		root.setPrefSize(750, 750);
+		
+		Rectangle back = new Rectangle();
+		back.setFill(Color.BEIGE);
+		back.setHeight(750);
+		back.setWidth(750);
+		root.getChildren().add(back);
+		
+		for(int i = 0; i < 15; i++)
+		{
+			for(int j = 0 ; j < 15; j++)
+			{
+				Square tile = new Square(i,j);
+				tile.setTranslateX(j*50);
+				tile.setTranslateY(i*50);
+				root.getChildren().add(tile);
+				
+			}
+		}
+		
+		
+		
+		return root;
+		
+		
+	}
+	
+	@Override
+	public void start(Stage arg0) 
+	{
+		// TODO Auto-generated method stub
+		
+		
+		arg0.setScene(new Scene(createContent()));
+		arg0.show();
+		//playGame();
+	}
+	
+	public static boolean checkWinH(int x,int y, int val)
+	{
+		int count = 0;
+		for(int i = 0; i < arr[0].length; i++)
+		{
+			if(arr[x][i] == val)
+				count++;
+			else
+				count = 0;
+			if(count == 5)
+				return true;
+		}
+		
+		return false;
+		
+	}
+	
+	public static boolean checkWinV(int x,int y, int val)
+	{
+		int count = 0;
+		for(int i = 0; i < arr.length; i++)
+		{
+			if(arr[i][y] == val)
+				count++;
+			else
+				count = 0;
+			if(count == 5)
+				return true;
+		}
+		
+		return false;
+		
+	}
+	
+	public static boolean checkWinD1(int x, int y, int val)
+	{
+		int count=0;
+		for(int i =0; i<arr.length; i++)
+		{
+			if(inBounds(x-i,y+i))
+			{
+			if(arr[x-i][y+i]==val)
+				count++;
+			else
+				count=0;
+			}		
+			if(count==5)
+				return true;
+		
+			
+		}
+		
+		for(int i =0;i<arr.length;i++)
+		{
+			if(inBounds(x+i,y-i)){
+				if(arr[x+i][y-i]==val)
+					count++;
+				else
+					count=0;
+				}
+				
+				if(count==5)
+					return true;
+		}
+		
+		
+		
+	return false;
+	}
+	
+	public static boolean checkWinD2(int x, int y, int val)
+	{
+		int count=0;
+		for(int i =0; i<arr.length; i++)
+		{
+			if(inBounds(x-i,y-i))
+			{
+			if(arr[x-i][y-i]==val)
+				count++;
+			else
+				count=0;
+			}		
+			if(count==5)
+				return true;
+		
+			
+		}
+		
+		for(int i =0;i<arr.length;i++)
+		{
+			if(inBounds(x+i,y+i)){
+				if(arr[x+i][y+i]==val)
+					count++;
+				else
+					count=0;
+				}
+				
+				if(count==5)
+					return true;
+		}
+		
+		
+		
+	return false;
+	}
+	
+	public static boolean inBounds(int x, int y)
+	{
+		if(x>=0 && x<arr.length && y>=0 && y<arr.length)
+			return true;
+		else 
+			return false;
+	}
+	
+	
+	
+	public static void printArray()
+	{
+		for(int i = 0; i < arr.length; i++)
+		{
+			for(int j = 0; j < arr[i].length; j++)
+			{
+				System.out.print(arr[i][j] + " ");
+				
+			}
+			System.out.println();
+		}
+	}
+	
+	
+	public static void main(String [] args)
+	{
+		launch(args);
+	}
+}
