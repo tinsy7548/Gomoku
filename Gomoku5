@@ -161,6 +161,13 @@ public class Gomoku1 extends Application
 	return false;
 	}
 	
+	public static boolean checkWinner(int x,int y, int val)
+	{
+		
+		return (Gomoku1.checkWinH(x, y, 1) || Gomoku1.checkWinV(x, y, 1) || Gomoku1.checkWinD1(x, y, 1) || Gomoku1.checkWinD2(x, y, 1));
+			
+	}
+	
 	public static boolean inBounds(int x, int y)
 	{
 		if(x>=0 && x<arr.length && y>=0 && y<arr.length)
