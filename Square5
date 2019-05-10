@@ -37,14 +37,18 @@ public class Square extends StackPane {
 						turn++;
 						Gomoku1.arr[x][y] = 1;
 						//Gomoku1.printArray();
-						if(Gomoku1.checkWinH(x, y, 1) || Gomoku1.checkWinV(x, y, 1) || Gomoku1.checkWinD1(x, y, 1) || Gomoku1.checkWinD2(x, y, 1))
+//						if(Gomoku1.checkWinH(x, y, 1) || Gomoku1.checkWinV(x, y, 1) || Gomoku1.checkWinD1(x, y, 1) || Gomoku1.checkWinD2(x, y, 1))
+//							System.out.println("Black Wins!");
+						if(Gomoku1.checkWinner(x, y, 1))
 							System.out.println("Black Wins!");
 					} else {
 						drawWhite();
 						turn++;
 						Gomoku1.arr[x][y] = 2;
 						//Gomoku1.printArray();
-						if(Gomoku1.checkWinH(x, y, 2) || Gomoku1.checkWinV(x, y, 2)|| Gomoku1.checkWinD1(x, y, 2) || Gomoku1.checkWinD2(x, y, 2))
+//						if(Gomoku1.checkWinH(x, y, 2) || Gomoku1.checkWinV(x, y, 2)|| Gomoku1.checkWinD1(x, y, 2) || Gomoku1.checkWinD2(x, y, 2))
+//							System.out.println("White Wins!");
+						if(Gomoku1.checkWinner(x, y, 2))
 							System.out.println("White Wins!");
 					}
 				}
