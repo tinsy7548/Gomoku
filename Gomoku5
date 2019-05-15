@@ -9,9 +9,9 @@ import javafx.stage.Stage;
 
 public class Gomoku1 extends Application
 {
-	private boolean playable = true;
 	public static int[][] arr = new int[15][15];
-
+	private static Stage primary;
+	
 	private Parent createContent()
 	{
 		
@@ -48,9 +48,10 @@ public class Gomoku1 extends Application
 	public void start(Stage arg0) 
 	{
 		// TODO Auto-generated method stub
-		
+		//primaryStage = arg0;
 		
 		arg0.setScene(new Scene(createContent()));
+		primary = arg0;
 		arg0.show();
 		//playGame();
 	}
@@ -100,13 +101,16 @@ public class Gomoku1 extends Application
 				count++;
 			else
 				count=0;
-			}		
-			if(count==5)
+			if(count== 5)
 				return true;
+			}		
+			
 		
 			
 		}
 		
+		if(count != 0)
+			count--;
 		for(int i =0;i<arr.length;i++)
 		{
 			if(inBounds(x+i,y-i)){
@@ -114,11 +118,13 @@ public class Gomoku1 extends Application
 					count++;
 				else
 					count=0;
-				}
-				
 				if(count==5)
 					return true;
+				}
+				
+				
 		}
+		count = 0;
 		
 		
 		
@@ -137,11 +143,14 @@ public class Gomoku1 extends Application
 			else
 				count=0;
 			}		
-			if(count==5)
+			if(count>4)
 				return true;
 		
 			
 		}
+		
+		if(count != 0)
+			count--;
 		
 		for(int i =0;i<arr.length;i++)
 		{
@@ -152,20 +161,13 @@ public class Gomoku1 extends Application
 					count=0;
 				}
 				
-				if(count==5)
+				if(count>4)
 					return true;
 		}
 		
 		
 		
 	return false;
-	}
-	
-	public static boolean checkWinner(int x,int y, int val)
-	{
-		
-		return (Gomoku1.checkWinH(x, y, 1) || Gomoku1.checkWinV(x, y, 1) || Gomoku1.checkWinD1(x, y, 1) || Gomoku1.checkWinD2(x, y, 1));
-			
 	}
 	
 	public static boolean inBounds(int x, int y)
@@ -189,6 +191,11 @@ public class Gomoku1 extends Application
 			}
 			System.out.println();
 		}
+	}
+	
+	public static Stage getStage()
+	{
+		return primary;
 	}
 	
 	
