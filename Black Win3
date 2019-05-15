@@ -24,7 +24,7 @@ public class BlackWins extends Application {
         launch(args);
     }
     
-    @Override
+    @Override 
     
     public void start(Stage primaryStage) 
     {
